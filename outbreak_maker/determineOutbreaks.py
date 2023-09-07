@@ -9,9 +9,7 @@ from outbreak_maker import nanoporeOutbreak
 def determine_outbreaks(args):
     os.system('mkdir -p {}'.format(args.output))
 
-    args.illumina.sort()
-    args.nanopore.sort()
-
+    #sort nanopore and illumina
     if args.epi_file is not None:
         with open(args.epi_file) as f:
             args.epi_dict = json.load(f)
