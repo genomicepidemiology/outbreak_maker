@@ -10,10 +10,15 @@ def assemble_illumina_reads(args):
         os.system('mkdir -p {}/{}'.format(args.output, name))
     cmd = 'spades.py -1 {} -2 {} -o {}/{}/assembly --threads 8'.format(args.illumina[0], args.illumina[1], args.output, name)
     os.system(cmd)
+    #TBD test draft function
     draft_genome = draftGenome.concat_draft_genome(args, name, '{}/{}/assembly/scaffolds.fasta'.format(args.output, name))
-    print (draft_genome)
-    sys.exit()
-    # TBD
+    if len(args.epi_dict['samples']) == 0:
+        cmd = 'kma index -i {} -o {} -Sparse ATG'.format(draft_genome, args.epi_dict['database'])
+        os.system(cmd)
+    else:
+        cmd = 'kma -i {} -t_db {} -Sparse ATG'.format(draft_genome, args.epi_dict['database'])
+        os.system(cmd)
+    args.epi_dict['clusters']['>concatenated_draft_genome_of_assembly:{}'.format(name)] = set()
     return args.epi_dict
 
 #def assemble_nanopore_reads(args):

@@ -14,4 +14,4 @@ def concat_draft_genome(args, name, scaffold_file):
         print (header, file = f)
         print (sequence, file = f)
 
-    return '{}/{}/{}'.format(output, name, 'draft_genome.fasta')
+    return '{}/{}/{}'.format(args.output, name, 'draft_genome.fasta')
