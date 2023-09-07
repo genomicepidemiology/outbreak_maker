@@ -21,6 +21,8 @@ def determine_outbreaks(args):
             args.epi_dict = denovoAssembly.assemble_illumina_reads(args)
         elif args.nanopore != []:
             args.epi_dict = denovoAssembly.assemble_nanopore_reads(args)
+        print (args.epi_dict)
+        sys.exit()
         with open(args.output + '/epi_dict.json', 'w') as f:
             json.dump(args.epi_dict, f)
 
