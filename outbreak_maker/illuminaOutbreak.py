@@ -2,7 +2,6 @@ import os
 import sys
 
 from outbreak_maker import utils
-from outbreak_maker import kma
 from outbreak_maker import evalKmaResults
 
 def determine_illumina_outbreak(args):
