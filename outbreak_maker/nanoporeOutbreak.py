@@ -2,7 +2,6 @@ import os
 import sys
 
 from outbreak_maker import utils
-from outbreak_maker import kma
 from outbreak_maker import evalKmaResults
 
 def determine_nanopore_outbreak(args):
@@ -13,10 +12,7 @@ def determine_nanopore_outbreak(args):
     print (template_number, template_score, reference_header_text)
     #Continue here
     input_string = " ".join(args.illumina)
-    kma.KMARunner(input_string,
-                  args.output + "/reference_alignment",
-                  args.db_dir + "/bac_db",
-                  "-mint3 -Mt1 {} -t {}".format(template_number, args.threads)).run()
+    sys.exit()
 
     cluster_id, score = evalKmaResults.derive_kma_alignment_results()
 
