@@ -18,12 +18,15 @@ def determine_outbreaks(args):
         args.epi_dict['clusters'] = {}
         #Remake this. Assemble index 0 and pop from list. continue
         if args.illumina != []:
-            args.epi_dict = denovoAssembly.assemble_illumina_reads(args)
+            #args.epi_dict = denovoAssembly.assemble_illumina_reads(args)
+            args.illumina = args.illumina[1:]
+            print (args.illumina)
+            sys.exit()
         elif args.nanopore != []:
             args.epi_dict = denovoAssembly.assemble_nanopore_reads(args)
         print (args.epi_dict)
-        with open(args.output + '/epi_dict.json', 'w') as f:
-            json.dump(args.epi_dict, f)
+        #with open(args.output + '/epi_dict.json', 'w') as f:
+        #    json.dump(args.epi_dict, f)
 
 
     sys.exit()
