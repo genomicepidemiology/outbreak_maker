@@ -18,7 +18,7 @@ def assemble_illumina_reads(args):
     else:
         cmd = 'kma -i {} -t_db {} -Sparse ATG'.format(draft_genome, args.epi_dict['database'])
         os.system(cmd)
-    args.epi_dict['clusters']['>concatenated_draft_genome_of_assembly:{}'.format(name)] = set()
+    args.epi_dict['clusters']['concatenated_draft_genome_of_assembly:{}'.format(name)] = []
     return args.epi_dict
 
 #def assemble_nanopore_reads(args):
