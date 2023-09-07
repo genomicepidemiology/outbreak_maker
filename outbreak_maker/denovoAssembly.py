@@ -12,7 +12,7 @@ def assemble_illumina_reads(args):
     os.system(cmd)
     #TBD test draft function
     draft_genome = draftGenome.concat_draft_genome(args, name, '{}/{}/assembly/scaffolds.fasta'.format(args.output, name))
-    if len(args.epi_dict['samples']) == 0:
+    if len(args.epi_dict['clusters']) == 0:
         cmd = 'kma index -i {} -o {} -Sparse ATG'.format(draft_genome, args.epi_dict['database'])
         os.system(cmd)
     else:
