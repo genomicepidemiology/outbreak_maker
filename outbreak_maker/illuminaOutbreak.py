@@ -12,7 +12,7 @@ def determine_illumina_outbreak(args):
             .format(args.illumina[i], args.illumina[i+1], args.output, name, args.epi_dict['database'], args.threads)
         print (cmd)
         os.system(cmd)
-        spa_file = '{}/{}/reference_templates.spa'.format(args.output, anme)
+        spa_file = '{}/{}/reference_templates.spa'.format(args.output, name)
         template_number, template_score, reference_header_text = utils.find_best_template_from_spa_file(spa_file, args.epi_dict['database'])
         print (template_number, template_score, reference_header_text)
 
