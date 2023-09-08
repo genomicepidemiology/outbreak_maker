@@ -29,9 +29,6 @@ def determine_outbreaks(args):
         #    json.dump(args.epi_dict, f)
 
     if args.illumina != []:
-        name = args.illumina[0].split('/')[-1].split('.')[0]
-        os.system('mkdir -p {}/{}'.format(args.output, name))
-        args.output = '{}/{}'.format(args.output, name)
         epi_dict = illuminaOutbreak.determine_illumina_outbreak(args)
     if args.nanopore != []:
         name = args.nanopore[0].split('/')[-1].split('.')[0]
