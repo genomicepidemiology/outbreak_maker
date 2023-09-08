@@ -9,19 +9,18 @@ def determine_illumina_outbreak(args):
     for i in range(0, len(args.illumina), 2):
         name = args.illumina[i].split('/')[-1].split('.')[0]
         os.system('mkdir -p {}/{}'.format(args.output, name))
-        args.output = '{}/{}'.format(args.output, name)
-        print (args.output)
+        output_dir = '{}/{}'.format(args.output, name)
         cmd = 'kma -ipe {} {} -o {}/reference_templates -t_db {} -t {} -mem_mode -Sparse'\
-            .format(args.illumina[i], args.illumina[i+1], args.output, args.epi_dict['database'], args.threads)
+            .format(args.illumina[i], args.illumina[i+1], output_dir, args.epi_dict['database'], args.threads)
         print (cmd)
         os.system(cmd)
-        spa_file = '{}/reference_templates.spa'.format(args.output)
+        spa_file = '{}/reference_templates.spa'.format(output_dir)
         template_number, template_score, reference_header_text = utils.find_best_template_from_spa_file(spa_file, args.epi_dict['database'])
         print (template_number, template_score, reference_header_text)
 
         #Determine ANI to best template
-        cmd = 'kma -ipe {} {} -o {}/{} -t_db {} -mint3 -Mt1 {} -t {}'\
-            .format(args.illumina[i], args.illumina[i+1], args.output, name, args.epi_dict['database'], template_number, args.threads)
+        cmd = 'kma -ipe {} {} -o {} -t_db {} -mint3 -Mt1 {} -t {}'\
+            .format(args.illumina[i], args.illumina[i+1], output_dir, args.epi_dict['database'], template_number, args.threads)
         print (cmd)
         os.system(cmd)
 
