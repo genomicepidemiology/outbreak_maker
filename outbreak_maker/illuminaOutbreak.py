@@ -6,7 +6,6 @@ from outbreak_maker import evalKmaResults
 
 def determine_illumina_outbreak(args):
     print (args.illumina)
-    sys.exit()
     for i in range(0, len(args.illumina), 2):
         name = args.illumina[i].split('/')[-1].split('.')[0]
         print (args.output)
