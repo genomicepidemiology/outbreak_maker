@@ -7,7 +7,7 @@ from outbreak_maker import evalKmaResults
 def determine_illumina_outbreak(args):
     print (args.illumina)
     for i in range(0, len(args.illumina), 2):
-        name = args.illumina[0].split('/')[-1].split('.')[0]
+        name = args.illumina[i].split('/')[-1].split('.')[0]
         os.system('mkdir -p {}/{}'.format(args.output, name))
         args.output = '{}/{}'.format(args.output, name)
         print (args.output)
