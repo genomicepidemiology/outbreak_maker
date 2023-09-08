@@ -21,8 +21,8 @@ def determine_illumina_outbreak(args):
             .format(args.illumina[i], args.illumina[i+1], args.output, name, args.epi_dict['database'], template_number, args.threads)
         print (cmd)
         os.system(cmd)
-        sys.exit()
 
+    sys.exit()
     cluster_id, score = evalKmaResults.derive_kma_alignment_results()
 
     if cluster_id in args.epi_dict['clusters']:
