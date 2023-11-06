@@ -11,18 +11,18 @@ def determine_illumina_outbreak(illumina, output, epi_dict, threads):
         os.system('mkdir -p {}/{}'.format(output, name))
         output_dir = '{}/{}'.format(output, name)
         cmd = 'kma -ipe {} {} -o {}/reference_templates -t_db {} -t {} -mem_mode -Sparse'\
-            .format(illumina[i], illumina[i+1], output_dir, epi_dict['database'], threads)
+            .format(illumina[i], illumina[i+1], output_dir, epi_dict[''], threads)
         print (cmd)
         os.system(cmd)
         spa_file = '{}/reference_templates.spa'.format(output_dir)
         #TBD add original pointer to draft genome
         #Save draft genome with a to the concatnated genome. Use concatnated genome for reference search only!
-        template_number, template_score, reference_header_text = utils.find_best_template_from_spa_file(spa_file, epi_dict['database'])
+        template_number, template_score, reference_header_text = utils.find_best_template_from_spa_file(spa_file, epi_dict['cluster_mapping_database'])
         print (template_number, template_score, reference_header_text)
 
         sys.exit()
         cmd = 'kma -ipe {} {} -o {}/{} -t_db {} -mint3 -Mt1 {} -t {}'\
-            .format(illumina[i],illumina[i+1], output_dir, name, epi_dict['database'], template_number, threads)
+            .format(illumina[i],illumina[i+1], output_dir, name, epi_dict['cluster_mapping_database'], template_number, threads)
         print (cmd)
         os.system(cmd)
         sys.exit()
