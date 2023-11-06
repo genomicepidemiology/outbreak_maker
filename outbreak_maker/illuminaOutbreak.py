@@ -18,9 +18,11 @@ def determine_illumina_outbreak(illumina, output, epi_dict, threads):
         #TBD add original pointer to draft genome
         #Save draft genome with a to the concatnated genome. Use concatnated genome for reference search only!
         template_number, template_score, reference_header_text = utils.find_best_template_from_spa_file(spa_file, epi_dict['cluster_mapping_database'])
-        print (template_number, template_score, reference_header_text)
 
+        with open('{}/{}.fa'.format(output_dir, reference_header_text), 'w') as f:
+            print (epi_dict['draft_genome'][reference_header_text], file = f)
         sys.exit()
+
         cmd = 'kma -ipe {} {} -o {}/{} -t_db {} -mint3 -Mt1 {} -t {}'\
             .format(illumina[i],illumina[i+1], output_dir, name, epi_dict['cluster_mapping_database'], template_number, threads)
         print (cmd)

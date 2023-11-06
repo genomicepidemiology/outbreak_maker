@@ -3,7 +3,7 @@ import sys
 
 def concat_draft_genome(name, scaffold_file, output):
     sequence = ''
-    header = '>concatenated_draft_genome_of_assembly:{}'.format(name)
+    header = '>{}'.format(name)
     with open(scaffold_file, 'r') as f:
         for line in f:
             if not line.startswith('>'):
