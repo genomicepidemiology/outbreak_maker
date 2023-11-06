@@ -36,7 +36,7 @@ def determine_illumina_outbreak(illumina, output, epi_dict, threads):
         print (cmd)
         os.system(cmd)
 
-        if eval_fastANI('{}/{}_fastANI'.format(output_dir, name), 99.0):
+        if eval_fastANI('{}/{}_fastANI'.format(output_dir, name), 99.99):
             epi_dict['clusters'][reference_header_text].append(name)
         else:
             epi_dict['clusters'][name] = []
