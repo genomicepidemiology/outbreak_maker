@@ -6,5 +6,4 @@ channels:
 dependencies:
   - kma
   - spades
-  - mamba
   - fastani
