@@ -37,11 +37,13 @@ def determine_outbreaks(args):
     if args.illumina != []:
         epi_dict = illuminaOutbreak.determine_illumina_outbreak(args.illumina, args.output, args.epi_dict, args.threads)
 
-    for item in epi_dict['clusters']:
-        print (item, epi_dict['clusters'][item])
+
 
     #if args.nanopore != []:
     #    name = args.nanopore[0].split('/')[-1].split('.')[0]
     ##    os.system('mkdir -p {}/{}'.format(args.output, name))
     #    args.output = '{}/{}'.format(args.output, name)
     #    epi_dict = illuminaOutbreak.determine_illumina_break(args)
+
+    with open(args.output + '/epi_dict.json', 'w') as f:
+        json.dump(epi_dict, f)

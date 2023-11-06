@@ -12,7 +12,6 @@ def determine_illumina_outbreak(illumina, output, epi_dict, threads):
         output_dir = '{}/{}'.format(output, name)
         cmd = 'kma -ipe {} {} -o {}/reference_templates -t_db {} -t {} -mem_mode -Sparse'\
             .format(illumina[i], illumina[i+1], output_dir, epi_dict['cluster_mapping_database'], threads)
-        print (cmd)
         os.system(cmd)
         spa_file = '{}/reference_templates.spa'.format(output_dir)
         #TBD add original pointer to draft genome
@@ -23,20 +22,16 @@ def determine_illumina_outbreak(illumina, output, epi_dict, threads):
             print (epi_dict['draft_genome'][reference_header_text], file = f)
 
         cmd = 'kma index -i {}/{}.fsa -o {}/{}_db -Sparse ATG'.format(output_dir, reference_header_text, output_dir, reference_header_text)
-        print (cmd)
         os.system(cmd)
 
         cmd = 'kma -ipe {} {} -o {}/{} -t_db {}/{}_db -mint3 -Mt1 {} -t {}'\
             .format(illumina[i], illumina[i+1], output_dir, name, output_dir, reference_header_text, template_number, threads)
-        print (cmd)
         os.system(cmd)
 
         cmd = 'fastANI -q {} -r {} -o {}'\
-            .format('{}/{}.fsa'.format(output_dir, reference_header_text), '{}/{}.fsa'.format(output_dir, name), '{}/{}_fastANI'.format(output_dir, name))
-        print (cmd)
-        os.system(cmd)
+            .format('{}/{}.fsa'.format(output_dir, reference_header_text), '{}/{}.fsa'.format(output_dir, name), '{}/{}_fastANI'.format(output_dir, name))        os.system(cmd)
 
-        if eval_fastANI('{}/{}_fastANI'.format(output_dir, name), 99.99):
+        if eval_fastANI('{}/{}_fastANI'.format(output_dir, name), 99.7):
             epi_dict['clusters'][reference_header_text].append(name)
         else:
             epi_dict['clusters'][name] = []
