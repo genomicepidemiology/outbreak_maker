@@ -8,8 +8,8 @@ def assemble_illumina_reads(illumina, output, epi_dict):
     name = illumina[0].split('/')[-1].split('.')[0]
     if not os.path.exists(output + '/' + name):
         os.system('mkdir -p {}/{}'.format(output, name))
-    #cmd = 'spades.py -1 {} -2 {} -o {}/{}/assembly --threads 8'.format(args.illumina[0], args.illumina[1], args.output, name)
-    #os.system(cmd)
+    cmd = 'spades.py -1 {} -2 {} -o {}/{}/assembly --threads 8'.format(args.illumina[0], args.illumina[1], args.output, name)
+    os.system(cmd)
 
     #TBD test draft function
     #111 contigs for test_10
