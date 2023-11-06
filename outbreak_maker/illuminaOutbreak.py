@@ -29,7 +29,8 @@ def determine_illumina_outbreak(illumina, output, epi_dict, threads):
         os.system(cmd)
 
         cmd = 'fastANI -q {} -r {} -o {}'\
-            .format('{}/{}.fsa'.format(output_dir, reference_header_text), '{}/{}.fsa'.format(output_dir, name), '{}/{}_fastANI'.format(output_dir, name))        os.system(cmd)
+            .format('{}/{}.fsa'.format(output_dir, reference_header_text), '{}/{}.fsa'.format(output_dir, name), '{}/{}_fastANI'.format(output_dir, name))
+        os.system(cmd)
 
         if eval_fastANI('{}/{}_fastANI'.format(output_dir, name), 99.7):
             epi_dict['clusters'][reference_header_text].append(name)
