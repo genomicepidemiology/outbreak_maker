@@ -22,7 +22,7 @@ def determine_outbreaks(args):
         #Remake this. Assemble index 0 and pop from list. continue
         if args.illumina != []:
             #Assembly first illumina
-            args.epi_dict = denovoAssembly.assemble_illumina_reads(args.illumina, args.output, args.epi_dict)
+            args.epi_dict = denovoAssembly.assemble_illumina_reads([args.illumina[0], args.illumina[1]], args.output, args.epi_dict)
             args.illumina = args.illumina[2:]
         elif args.nanopore != []:
             #Assembly first nanopore

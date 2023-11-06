@@ -3,9 +3,9 @@ import sys
 
 from outbreak_maker import utils
 from outbreak_maker import evalKmaResults
+from outbreak_maker import denovoAssembly
 
 def determine_illumina_outbreak(illumina, output, epi_dict, threads):
-    print (illumina)
     for i in range(0, len(illumina), 2):
         name = illumina[i].split('/')[-1].split('.')[0]
         os.system('mkdir -p {}/{}'.format(output, name))
@@ -35,14 +35,22 @@ def determine_illumina_outbreak(illumina, output, epi_dict, threads):
             .format('{}/{}.fsa'.format(output_dir, reference_header_text), '{}/{}.fsa'.format(output_dir, name), '{}/{}_fastANI'.format(output_dir, name))
         print (cmd)
         os.system(cmd)
-        sys.exit()
-    
-    cluster_id, score = evalKmaResults.derive_kma_alignment_results()
 
-    if cluster_id in args.epi_dict['clusters']:
-        #Add as child to cluster
-        pass
-    else:
-        epi_dict = assemble_illumina_reads(args)
+        if eval_fastANI('{}/{}_fastANI'.format(output_dir, name), 99.0):
+            epi_dict['clusters'][reference_header_text].append(name)
+        else:
+            epi_dict['clusters'][name] = []
+            epi_dict = denovoAssembly.assemble_illumina_reads(illumina, output, epi_dict)
 
     return epi_dict
+
+def eval_fastANI(file, threshold):
+    with open(file, 'r') as f:
+        data = f.read().split("\t")
+        query = data[0]
+        reference = data[1]
+        score = float(data[2])
+        if score > threshold:
+            return True
+        else:
+            return False
