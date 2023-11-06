@@ -19,9 +19,11 @@ def determine_outbreaks(args):
         args.epi_dict['clusters'] = {}
         #Remake this. Assemble index 0 and pop from list. continue
         if args.illumina != []:
+            #Assembly first illumina
             args.epi_dict = denovoAssembly.assemble_illumina_reads(args)
             args.illumina = args.illumina[2:]
         elif args.nanopore != []:
+            #Assembly first nanopore
             args.epi_dict = denovoAssembly.assemble_nanopore_reads(args)
             args.nanopore = args.nanopore[1:]
         print (args.epi_dict)

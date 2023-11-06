@@ -1,0 +1,7 @@
+name: outbreak_maker
+channels:
+  - bioconda
+  - defaults
+dependencies:
+  - kma
+  - spades

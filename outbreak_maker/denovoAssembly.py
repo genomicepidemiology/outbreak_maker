@@ -10,6 +10,7 @@ def assemble_illumina_reads(args):
         os.system('mkdir -p {}/{}'.format(args.output, name))
     cmd = 'spades.py -1 {} -2 {} -o {}/{}/assembly --threads 8'.format(args.illumina[0], args.illumina[1], args.output, name)
     os.system(cmd)
+    sys.exit()
     #TBD test draft function
     draft_genome = draftGenome.concat_draft_genome(args, name, '{}/{}/assembly/scaffolds.fasta'.format(args.output, name))
     if len(args.epi_dict['clusters']) == 0:

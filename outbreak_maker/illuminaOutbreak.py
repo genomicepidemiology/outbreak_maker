@@ -19,12 +19,11 @@ def determine_illumina_outbreak(args):
         print (template_number, template_score, reference_header_text)
 
         #Determine ANI to best template
-        cmd = 'kma -ipe {} {} -o {} -t_db {} -mint3 -Mt1 {} -t {}'\
-            .format(args.illumina[i], args.illumina[i+1], output_dir, args.epi_dict['database'], template_number, args.threads)
+        cmd = 'kma -ipe {} {} -o {}/{} -t_db {} -mint3 -Mt1 {} -t {}'\
+            .format(args.illumina[i], args.illumina[i+1], output_dir, name, args.epi_dict['database'], template_number, args.threads)
         print (cmd)
         os.system(cmd)
 
-    sys.exit()
     cluster_id, score = evalKmaResults.derive_kma_alignment_results()
 
     if cluster_id in args.epi_dict['clusters']:
