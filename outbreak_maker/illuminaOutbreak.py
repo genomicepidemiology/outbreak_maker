@@ -6,9 +6,6 @@ from outbreak_maker import evalKmaResults
 
 def determine_illumina_outbreak(illumina, output, epi_dict, threads):
     print (illumina)
-    print (epi_dict)
-    sys.exit()
-    print (illumina)
     for i in range(0, len(illumina), 2):
         name = illumina[i].split('/')[-1].split('.')[0]
         os.system('mkdir -p {}/{}'.format(output, name))
@@ -23,6 +20,7 @@ def determine_illumina_outbreak(illumina, output, epi_dict, threads):
         template_number, template_score, reference_header_text = utils.find_best_template_from_spa_file(spa_file, epi_dict['database'])
         print (template_number, template_score, reference_header_text)
 
+        sys.exit()
         cmd = 'kma -ipe {} {} -o {}/{} -t_db {} -mint3 -Mt1 {} -t {}'\
             .format(illumina[i],illumina[i+1], output_dir, name, epi_dict['database'], template_number, threads)
         print (cmd)

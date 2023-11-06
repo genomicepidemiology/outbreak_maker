@@ -28,11 +28,12 @@ def determine_outbreaks(args):
             #Assembly first nanopore
             args.epi_dict = denovoAssembly.assemble_nanopore_reads(args)
             args.nanopore = args.nanopore[1:]
-        print (args.epi_dict)
+        print (args.epi_dict['clusters'])
         #with open(args.output + '/epi_dict.json', 'w') as f:
         #    json.dump(args.epi_dict, f)
 
-    sys.exit()
+
+
     if args.illumina != []:
         epi_dict = illuminaOutbreak.determine_illumina_outbreak(args.illumina, args.output, args.epi_dict, args.threads)
     if args.nanopore != []:
