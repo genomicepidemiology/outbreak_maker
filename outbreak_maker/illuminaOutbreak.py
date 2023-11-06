@@ -11,7 +11,7 @@ def determine_illumina_outbreak(illumina, output, epi_dict, threads):
         os.system('mkdir -p {}/{}'.format(output, name))
         output_dir = '{}/{}'.format(output, name)
         cmd = 'kma -ipe {} {} -o {}/reference_templates -t_db {} -t {} -mem_mode -Sparse'\
-            .format(illumina[i], illumina[i+1], output_dir, epi_dict[''], threads)
+            .format(illumina[i], illumina[i+1], output_dir, epi_dict['cluster_mapping_database'], threads)
         print (cmd)
         os.system(cmd)
         spa_file = '{}/reference_templates.spa'.format(output_dir)
