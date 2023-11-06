@@ -21,10 +21,13 @@ def determine_illumina_outbreak(illumina, output, epi_dict, threads):
 
         with open('{}/{}.fa'.format(output_dir, reference_header_text), 'w') as f:
             print (epi_dict['draft_genome'][reference_header_text], file = f)
-        sys.exit()
 
-        cmd = 'kma -ipe {} {} -o {}/{} -t_db {} -mint3 -Mt1 {} -t {}'\
-            .format(illumina[i],illumina[i+1], output_dir, name, epi_dict['cluster_mapping_database'], template_number, threads)
+        cmd = 'kma index -i {}/{}.fa -o {}/{}_db -Sparse ATG'.format(output_dir, reference_header_text, output_dir, reference_header_text)
+        print (cmd)
+        os.system(cmd)
+
+        cmd = 'kma -ipe {} {} -o {}/{} -t_db {}/{}_db -mint3 -Mt1 {} -t {}'\
+            .format(illumina[i], illumina[i+1], output_dir, name, output, reference_header_text, template_number, threads)
         print (cmd)
         os.system(cmd)
         sys.exit()
