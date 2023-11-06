@@ -7,3 +7,4 @@ dependencies:
   - kma
   - spades
   - mamba
+  - fastani
