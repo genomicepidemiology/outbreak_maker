@@ -4,23 +4,27 @@ import sys
 from outbreak_maker import utils
 from outbreak_maker import evalKmaResults
 
-def determine_illumina_outbreak(args):
-    print (args.illumina)
-    for i in range(0, len(args.illumina), 2):
-        name = args.illumina[i].split('/')[-1].split('.')[0]
-        os.system('mkdir -p {}/{}'.format(args.output, name))
-        output_dir = '{}/{}'.format(args.output, name)
+def determine_illumina_outbreak(illumina, output, epi_dict, threads):
+    print (illumina)
+    print (epi_dict)
+    sys.exit()
+    print (illumina)
+    for i in range(0, len(illumina), 2):
+        name = illumina[i].split('/')[-1].split('.')[0]
+        os.system('mkdir -p {}/{}'.format(output, name))
+        output_dir = '{}/{}'.format(output, name)
         cmd = 'kma -ipe {} {} -o {}/reference_templates -t_db {} -t {} -mem_mode -Sparse'\
-            .format(args.illumina[i], args.illumina[i+1], output_dir, args.epi_dict['database'], args.threads)
+            .format(illumina[i], illumina[i+1], output_dir, epi_dict['database'], threads)
         print (cmd)
         os.system(cmd)
         spa_file = '{}/reference_templates.spa'.format(output_dir)
         #TBD add original pointer to draft genome
-        template_number, template_score, reference_header_text = utils.find_best_template_from_spa_file(spa_file, args.epi_dict['database'])
+        #Save draft genome with a to the concatnated genome. Use concatnated genome for reference search only!
+        template_number, template_score, reference_header_text = utils.find_best_template_from_spa_file(spa_file, epi_dict['database'])
         print (template_number, template_score, reference_header_text)
 
         cmd = 'kma -ipe {} {} -o {}/{} -t_db {} -mint3 -Mt1 {} -t {}'\
-            .format(args.illumina[i], args.illumina[i+1], output_dir, name, args.epi_dict['database'], template_number, args.threads)
+            .format(illumina[i],illumina[i+1], output_dir, name, epi_dict['database'], template_number, threads)
         print (cmd)
         os.system(cmd)
         sys.exit()

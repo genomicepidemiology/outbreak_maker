@@ -1,7 +1,7 @@
 import os
 import sys
 
-def concat_draft_genome(args, name, scaffold_file):
+def concat_draft_genome(name, scaffold_file, output):
     sequence = ''
     header = '>concatenated_draft_genome_of_assembly:{}'.format(name)
     with open(scaffold_file, 'r') as f:
@@ -10,8 +10,8 @@ def concat_draft_genome(args, name, scaffold_file):
                 line = line.strip()
                 sequence += line
 
-    with open('{}/{}/{}'.format(args.output, name, 'draft_genome.fasta'), 'w') as f:
+    with open('{}/{}/{}'.format(output, name, 'draft_genome.fasta'), 'w') as f:
         print (header, file = f)
         print (sequence, file = f)
 
-    return '{}/{}/{}'.format(args.output, name, 'draft_genome.fasta')
+    return '{}/{}/{}'.format(output, name, 'draft_genome.fasta')

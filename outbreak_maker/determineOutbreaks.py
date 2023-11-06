@@ -20,7 +20,7 @@ def determine_outbreaks(args):
         #Remake this. Assemble index 0 and pop from list. continue
         if args.illumina != []:
             #Assembly first illumina
-            args.epi_dict = denovoAssembly.assemble_illumina_reads(args)
+            args.epi_dict = denovoAssembly.assemble_illumina_reads(args.illumina, args.output, args.epi_dict)
             args.illumina = args.illumina[2:]
         elif args.nanopore != []:
             #Assembly first nanopore
@@ -31,7 +31,7 @@ def determine_outbreaks(args):
         #    json.dump(args.epi_dict, f)
 
     if args.illumina != []:
-        epi_dict = illuminaOutbreak.determine_illumina_outbreak(args)
+        epi_dict = illuminaOutbreak.determine_illumina_outbreak(args.illumina, args.output, args.epi_dict, args.threads)
     if args.nanopore != []:
         name = args.nanopore[0].split('/')[-1].split('.')[0]
         os.system('mkdir -p {}/{}'.format(args.output, name))
