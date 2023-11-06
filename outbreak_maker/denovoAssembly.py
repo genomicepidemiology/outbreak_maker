@@ -8,10 +8,12 @@ def assemble_illumina_reads(args):
     name = args.illumina[0].split('/')[-1].split('.')[0]
     if not os.path.exists(args.output + '/' + name):
         os.system('mkdir -p {}/{}'.format(args.output, name))
-    cmd = 'spades.py -1 {} -2 {} -o {}/{}/assembly --threads 8'.format(args.illumina[0], args.illumina[1], args.output, name)
-    os.system(cmd)
-    sys.exit()
+    #cmd = 'spades.py -1 {} -2 {} -o {}/{}/assembly --threads 8'.format(args.illumina[0], args.illumina[1], args.output, name)
+    #os.system(cmd)
+
     #TBD test draft function
+    #111 contigs for test_10
+    #FastANI works on draftgenome. To save original and make a concatenated draft genome?
     draft_genome = draftGenome.concat_draft_genome(args, name, '{}/{}/assembly/scaffolds.fasta'.format(args.output, name))
     if len(args.epi_dict['clusters']) == 0:
         cmd = 'kma index -i {} -o {} -Sparse ATG'.format(draft_genome, args.epi_dict['database'])
