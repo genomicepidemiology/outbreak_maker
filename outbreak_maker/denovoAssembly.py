@@ -16,10 +16,18 @@ def assemble_illumina_reads(illumina, output, epi_dict):
     #FastANI works on draftgenome. To save original and make a concatenated draft genome?
     draft_genome = draftGenome.concat_draft_genome(name, '{}/{}/assembly/scaffolds.fasta'.format(output, name), output)
     if len(epi_dict['clusters']) == 0:
-        cmd = 'kma index -i {} -o {} -Sparse ATG'.format(draft_genome, epi_dict['database'])
+        cmd = 'kma index -i {} -o {} -Sparse ATG'.format(draft_genome, epi_dict['cluster_mapping_database'])
         os.system(cmd)
     else:
-        cmd = 'kma -i {} -t_db {} -Sparse ATG'.format(draft_genome, epi_dict['database'])
+        cmd = 'kma -i {} -t_db {} -Sparse ATG'.format(draft_genome, epi_dict['cluster_mapping_database'])
         os.system(cmd)
-    epi_dict['clusters']['concatenated_draft_genome_of_assembly:{}'.format(name)] = []
+    epi_dict['clusters'][name] = []
+
+    with open('{}/{}/assembly/scaffolds.fasta'.format(output, name), 'r') as f:
+        content = f.read()
+        epi_dict['draft_genome'][name] = content
+
+    with open(draft_genome, 'r') as f:
+        content = f.read()
+        epi_dict['concat_draft_genome'][name] = content
     return epi_dict

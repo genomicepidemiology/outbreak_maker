@@ -15,8 +15,10 @@ def determine_outbreaks(args):
             args.epi_dict = json.load(f)
     else:
         args.epi_dict = {}
-        args.epi_dict['database'] = args.output + '/reference_database'
+        args.epi_dict['cluster_mapping_database'] = args.output + '/reference_database'
         args.epi_dict['clusters'] = {}
+        args.epi_dict['draft_genome'] = {}
+        args.epi_dict['concat_draft_genome'] = {}
         #Remake this. Assemble index 0 and pop from list. continue
         if args.illumina != []:
             #Assembly first illumina
@@ -30,6 +32,7 @@ def determine_outbreaks(args):
         #with open(args.output + '/epi_dict.json', 'w') as f:
         #    json.dump(args.epi_dict, f)
 
+    sys.exit()
     if args.illumina != []:
         epi_dict = illuminaOutbreak.determine_illumina_outbreak(args.illumina, args.output, args.epi_dict, args.threads)
     if args.nanopore != []:
