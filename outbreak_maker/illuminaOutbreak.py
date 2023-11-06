@@ -19,10 +19,10 @@ def determine_illumina_outbreak(illumina, output, epi_dict, threads):
         #Save draft genome with a to the concatnated genome. Use concatnated genome for reference search only!
         template_number, template_score, reference_header_text = utils.find_best_template_from_spa_file(spa_file, epi_dict['cluster_mapping_database'])
 
-        with open('{}/{}.fa'.format(output_dir, reference_header_text), 'w') as f:
+        with open('{}/{}.fsa'.format(output_dir, reference_header_text), 'w') as f:
             print (epi_dict['draft_genome'][reference_header_text], file = f)
 
-        cmd = 'kma index -i {}/{}.fa -o {}/{}_db -Sparse ATG'.format(output_dir, reference_header_text, output_dir, reference_header_text)
+        cmd = 'kma index -i {}/{}.fsa -o {}/{}_db -Sparse ATG'.format(output_dir, reference_header_text, output_dir, reference_header_text)
         print (cmd)
         os.system(cmd)
 
@@ -30,8 +30,13 @@ def determine_illumina_outbreak(illumina, output, epi_dict, threads):
             .format(illumina[i], illumina[i+1], output_dir, name, output_dir, reference_header_text, template_number, threads)
         print (cmd)
         os.system(cmd)
-        sys.exit()
 
+        cmd = 'fastANI -q {} -r {} -o {}'\
+            .format('{}/{}.fsa'.format(output_dir, reference_header_text), '{}/{}.fsa'.format(output_dir, name), '{}/{}_fastANI'.format(output_dir, name))
+        print (cmd)
+        os.system(cmd)
+        sys.exit()
+    
     cluster_id, score = evalKmaResults.derive_kma_alignment_results()
 
     if cluster_id in args.epi_dict['clusters']:
