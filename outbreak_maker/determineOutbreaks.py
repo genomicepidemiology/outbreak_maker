@@ -36,8 +36,9 @@ def determine_outbreaks(args):
 
     if args.illumina != []:
         epi_dict = illuminaOutbreak.determine_illumina_outbreak(args.illumina, args.output, args.epi_dict, args.threads)
-    if args.nanopore != []:
-        name = args.nanopore[0].split('/')[-1].split('.')[0]
-        os.system('mkdir -p {}/{}'.format(args.output, name))
-        args.output = '{}/{}'.format(args.output, name)
-        epi_dict = illuminaOutbreak.determine_illumina_break(args)
+        print (epi_dict)
+    #if args.nanopore != []:
+    #    name = args.nanopore[0].split('/')[-1].split('.')[0]
+    ##    os.system('mkdir -p {}/{}'.format(args.output, name))
+    #    args.output = '{}/{}'.format(args.output, name)
+    #    epi_dict = illuminaOutbreak.determine_illumina_break(args)
