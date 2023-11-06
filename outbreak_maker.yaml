@@ -1,7 +1,9 @@
 name: outbreak_maker
 channels:
   - bioconda
+  - conda-forge
   - defaults
 dependencies:
   - kma
   - spades
+  - mamba
