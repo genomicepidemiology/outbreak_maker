@@ -18,6 +18,7 @@ def determine_illumina_outbreak(args):
         template_number, template_score, reference_header_text = utils.find_best_template_from_spa_file(spa_file, args.epi_dict['database'])
         print (template_number, template_score, reference_header_text)
 
+        sys.exit()
         #Determine ANI to best template
         cmd = 'kma -ipe {} {} -o {}/{} -t_db {} -mint3 -Mt1 {} -t {}'\
             .format(args.illumina[i], args.illumina[i+1], output_dir, name, args.epi_dict['database'], template_number, args.threads)

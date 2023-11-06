@@ -29,7 +29,7 @@ def determine_outbreaks(args):
         print (args.epi_dict)
         #with open(args.output + '/epi_dict.json', 'w') as f:
         #    json.dump(args.epi_dict, f)
-    sys.exit()
+
     if args.illumina != []:
         epi_dict = illuminaOutbreak.determine_illumina_outbreak(args)
     if args.nanopore != []:
